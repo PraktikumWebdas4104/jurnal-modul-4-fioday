@@ -1,31 +1,33 @@
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<h2>Login Disini</h2>
- <form action="login.php" method="post">
- 	username: <input type="text" name="username">
-
- 	password: <input type="password" name="password">
-
- 	<input type="submit" value="masuk">
- </form>
-</body>
-</html>
-
-<?php
+<?php 
 session_start();
-
-$username=$_POST["username"];
-$password=$_POST["password"];
-
-if ($username == "dayana" and $password=="dayana") {
-
-	$_SESSION["username"]=$username;
-	header("location: proses.php");
-}else{
-	echo ("tidak login");
+error_reporting(0);
+  $user = array(
+    "user" => "dayana",
+    "pass" => "dayana"
+   );
+if(isset($_POST['submit'])){
+ if($_POST['username']==$user['user']&&$_POST['password']==$user['pass']) {
+  $_SESSION["username"] = $_POST['username'];
+  echo "Anda Berhasil Log In, $_POST[username]!";
+ } else {
+  display_login_form();
+  echo '<p> Username Atau Password Salah</p>';
+ }
 }
-
-?>
+else {
+ display_login_form();
+}
+function display_login_form(){ ?>
+ <form action ="proses.php" method='POST'>
+  <h1><center> Form Log In </center></h1>
+  <center><label for="username"> Username : </label></center>
+  <center><input type="text" name="username" id="username"></center>
+  <br><br>
+  <center><label for="password"> Password : </label></center>
+  <center><input type="password" name="password" id="password"></center>
+  <br><br>
+  <center><input type="submit" name="submit" value="Log In"></center>
+ </form>
+<?php 
+}
+ ?>
